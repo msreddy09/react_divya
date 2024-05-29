@@ -3,12 +3,12 @@ import { LoginContext } from "../LoginUserContext";
 
 const Parent2 = (props) => {
 
-    const user = useContext(LoginContext);
+    const {username, setUserTodata} = useContext(LoginContext); 
     
     return(
         <div>
-            <h1>Parent2 {user.user}</h1>
-            <button onClick={() => user.setUser('React')}>Click Me</button>
+            <h1>Parent2 {username}</h1>
+            <button onClick={() => setUserTodata('React')}>Click Me</button>
             
         </div>
     )

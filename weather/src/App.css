@@ -32,12 +32,13 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.weather-card{
+.weather-card {
   justify-content: center;
   width: 50%;
   align-items: center;
@@ -45,3 +46,37 @@
   border-radius: 5px;
   margin: 10px auto;
 }
+
+label {
+  display: block;
+}
+
+.error input {
+  border: 1px solid red;
+}
+
+.error label {
+  color: red;
+}
+
+.error-text {
+  color: red;
+  font-size: 10px;
+}
+
+.tabs {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  /* gap: 10px; */
+  /* flex: 1; */
+  width: 100%;
+  align-items: center;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  /* flex-wrap: nowrap; */
+
+}
+

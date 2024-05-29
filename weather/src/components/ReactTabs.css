@@ -1,0 +1,41 @@
+.tab-disabled{
+    background-color: lightgrey;
+    pointer-events: none;
+}
+.tab-selected {
+    background-color: gray;
+}
+
+.tabs-container {
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    padding-bottom: 30px;
+}
+
+.tab {
+    flex-grow: 1;
+    width: 100%;
+  
+  }
+  .tab button{
+    
+    width: 100%;
+    padding: 10px;
+    border: none;
+  }
+  .tab:hover {
+    cursor: pointer;
+    background-color: gray;
+  }
+
+  .tab .tab-text-center {
+    text-align: center;
+  }
+
+  .tab .tab-text-right {
+    text-align: right;
+  }
+
+  .tab .tab-text-left {
+    text-align: left;
+  }

@@ -3,7 +3,6 @@ import React from "react";
 
 const WeatherCard = ({weatherData, ind}) => {
 
-    console.log(ind);
 
     const formatString = (temp) => {
         return <span>{temp}&deg;</span>

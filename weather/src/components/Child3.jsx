@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
-import  {LoginContext, LoginContextProvider } from "../LoginUserContext";
+import { LoginContext, LoginContextProvider } from "../LoginUserContext";
 
 const Child3 = (props) => {
-   const user = useContext(LoginContext);
+    const user = useContext(LoginContext);
+    console.log(user);
 
-   console.log(user);
-
-    return(
+    return (
         <div>
-            <h1>Child3 {user.user}</h1>
+            <h1>Child3 {user.username}</h1>
         </div>
     )
 

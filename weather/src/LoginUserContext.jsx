@@ -1,14 +1,32 @@
-import React, { createContext, useState } from "react";
+import axios from "axios";
+import React, { createContext, useEffect, useState } from "react";
 
 const LoginContext = createContext();
 
 const LoginContextProvider = ({ children }) => {
-    const [user, setUser] = useState('JavasScript')
+    const [user, setUser] = useState('');
+
+    useEffect(() => {
+        axios.get('https://jsonplaceholder.typicode.com/users/1')
+            .then(function (response) {
+                setUser(response.data.name)
+                // handle success
+                // setWeahterInfo(response.data); /// weatherInfo = response.data
+            })
+            .catch(function (error) {
+                // handle error
+            })
+            .finally(function () {
+                // always executed
+            });
+    }, [])
+
     return (
         <LoginContext.Provider value={
             {
-                user,
-                setUser: (data) => setUser(data)
+                username: user,
+                setUserTodata: (data) => setUser(data),
+                // onlineUsers
             }}>
             {children}
         </LoginContext.Provider>
