@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <button id="btn">click me</button>
+        <header>
+            <nav>
+                <a href="index.html">About Us</a>
+                <a href="contact.html">contact</a>
+                <a href="careers.html">Careers</a>
+            </nav>
+        </header>
+        <div id="res">
+            <h1>Heading 1</h1>
+            <h2>Heading 2</h2>
+
+        </div>
+
+        <script>
+            btn.onclick = function() {
+                var h3 = document.createElement('h3');
+                var text = document.createTextNode('h3 contnetn');
+                h3.appendChild(text);
+              res.appendChild(h3)
+            }
+        </script>
+    </body>
+</html>

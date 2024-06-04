@@ -1,0 +1,66 @@
+#header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+
+body {
+    background-color: cadetblue;
+}
+
+#todocard {
+    background: white;
+    height: auto;
+    width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#todo-input-container {
+    text-align: center;
+}
+
+#todo-input-container input {
+    padding: 5px;
+    width: 93%;
+}
+#todo-input-container button {
+    padding: 5px;
+}
+
+#todos-list-container {
+    margin-top: 10px;
+}
+
+.todo-item-container{
+    padding: 5px;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo-item-container:hover {
+    background-color: deepskyblue;
+}
+
+.completed, .completed:hover {
+    background-color: #ccc;
+}
+.chekboxlabel {
+    height: 24px;
+    width: 24px;
+    background-image: url(checkedImg.png);
+}
+
+.actionbar-container{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.fa-times {
+    color: red;
+}
+

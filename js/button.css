@@ -1,0 +1,20 @@
+button.primary {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    border: 1px solid lightblue;
+    padding: 5px 10px;
+}
+
+button.rnd-brdr {
+    border-radius: 5px;
+
+}
+
+button.secondary {
+    background-color: gray;
+    color: black;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+}

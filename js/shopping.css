@@ -1,0 +1,72 @@
+html,
+body {
+    margin: 0;
+}
+
+header h2 {
+    text-align: center;
+}
+
+header {
+    border-bottom: 1px solid gray;
+}
+
+#categories {
+    height: auto;
+    width: 200px;
+    border: 1px solid #ccc;
+}
+#catlist div {
+    padding: 10px;
+}
+
+#catlist div:hover{
+    background-color: #ccc;
+    cursor: pointer;
+}
+#brandlist{
+    height: auto;
+    width: 200px;
+    border: 1px solid #ccc;
+}
+
+#brandlist div {
+    padding: 10px;
+}
+
+#brandlist div:hover{
+    background-color: aliceblue;
+    cursor: pointer;
+}
+
+#container {
+    display: flex;
+}
+#models {
+    display: flex;
+}
+#models div  {
+   padding: 10px;
+   border: 1px solid;
+   height: 250px;
+   width: 200px;
+   overflow: hidden;
+   margin: 10px;
+}
+#models div img {
+    height: 200px;
+    width: 200px;
+}
+#models div span {
+   display: block;
+   font-weight: bold;
+}
+
+.activeCategory {
+    background-color: #ccc;
+    font-weight: bold;
+}
+.activebrand {
+    background-color: aliceblue;
+    font-weight: bold;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+        integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <!-- <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" /> -->
+    
+    <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="todos.css" />
+
+</head>
+
+<body>
+   
+    <div id="todocard">
+        <div id="header">Todos </div>
+        <div id="todo-input-container">
+            <input id="todo-text" placeholder="Enter Todo" onkeyup="handleInputEnter(event)" />
+            <button id="addBtn" onclick="handleAddTodo()"><b>Add</b></button>
+        </div>
+        <div id="todos-list-container">
+            <!-- <div>
+                <input type="checkbox" checked=false>
+                <span>watch a moview</span>
+                <button>Delete</button>
+            </div> -->
+        </div>
+        <div class="actionbar-container">
+            <div id="dashboard"></div>
+            <div id="actionbar"><button onclick="handleDeleteCompletedTodos()">Delete all completed todos</button></div>
+        </div>
+    </div>
+    <script src="todos.js"></script>
+</body>
+
+</html>
