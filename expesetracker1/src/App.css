@@ -45,3 +45,11 @@
   right: 10px;
   cursor: pointer;
 }
+
+.addCat {
+  position: fixed;
+  zoom: 1;
+  bottom: 78px;
+  right: 10px;
+  cursor: pointer;
+}

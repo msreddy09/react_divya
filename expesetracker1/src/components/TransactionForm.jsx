@@ -1,16 +1,47 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form, FormGroup, Label, Input, Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+import { ExpenseContext } from "../contexts/BudgetContext";
 
 const TransactionForm = (props) => {
 
     const [tranType, setTranType] = useState('Expense');
 
-    const handleTranTypeChange = (event) => {
-        setTranType(event.target.value);
+    const expenseContextData = useContext(ExpenseContext);
+
+
+    const [transFormData, setTranFormData] = useState({});
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target
+        const formData = {
+            ...transFormData,
+            [name]: value
+        }
+        setTranFormData(formData);
+
+    }
+
+    const handleSaveTransaction = () => {
+        
+         if(transFormData.tranType === "Income"){
+            let obj = {
+                income: [...expenseContextData.income, transFormData],
+                expense: [...expenseContextData.expense]
+            }
+            expenseContextData.setBudgetData(obj)
+         }
+         if(transFormData.tranType === "Expense" ) {
+            let obj = {
+                income: [...expenseContextData.income],
+                expense: [...expenseContextData.expense , transFormData]
+            }
+            expenseContextData.setBudgetData(obj)
+         }
+         props.toggle();
     }
 
     return (
-        <Modal isOpen={props.modal}  toggle={props.toggle} >
+        <Modal isOpen={props.modal} toggle={props.toggle} >
             <ModalHeader toggle={props.toggle} >Trasaction </ModalHeader>
             <ModalBody>
                 <Form>
@@ -23,17 +54,19 @@ const TransactionForm = (props) => {
                         </Label>
                         <Input
                             id="exampleSelect"
-                            name="select"
+                            name="tranType"
                             type="select"
-                            onChange={handleTranTypeChange}
+                            onChange={handleInputChange}
                         >
+                            <option>
+                            </option>
                             <option>
                                 Expense
                             </option>
                             <option>
                                 Income
                             </option>
-                            
+
 
                         </Input>
                     </FormGroup>
@@ -44,24 +77,25 @@ const TransactionForm = (props) => {
                         >
                             Category Type
                         </Label>
-                        {tranType === 'Expense' && <Input
+                        {transFormData.tranType === 'Expense' && <Input
                             id="cattype"
-                            name="cattype"
+                            name="catType"
                             type="select"
+                            onChange={handleInputChange}
                         >
                             <option>
-                                Food
                             </option>
-                            <option>
-                                Travel
-                            </option>
+                            {expenseContextData.icats.map((ic, ind) => <option>{ic}</option>)}
 
                         </Input>}
-                        {tranType === 'Income' && <Input
+                        {transFormData.tranType === 'Income' && <Input
                             id="cattype"
-                            name="cattype"
+                            name="catType"
                             type="select"
+                            onChange={handleInputChange}
                         >
+                            <option>
+                            </option>
                             <option>
                                 Salary
                             </option>
@@ -83,6 +117,7 @@ const TransactionForm = (props) => {
                             id="amount"
                             name="amount"
                             placeholder="Amount"
+                            onChange={handleInputChange}
                         />
                     </FormGroup>
                     <FormGroup>
@@ -97,11 +132,12 @@ const TransactionForm = (props) => {
                             name="trandate"
                             placeholder="Date"
                             type="date"
+                            onChange={handleInputChange}
                         />
                     </FormGroup>
                     {' '}
-                    <Button color="primary">
-                        Submit
+                    <Button color="primary" onClick={handleSaveTransaction}>
+                        Save
                     </Button>
                     <Button onClick={props.toggle}>
                         Cancel
