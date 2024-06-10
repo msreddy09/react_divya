@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Form, FormGroup, Label, Input, Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, Modal, ModalHeader, ModalBody, Alert } from "reactstrap";
 import { ExpenseContext } from "../contexts/BudgetContext";
 
 const TransactionForm = (props) => {
 
     const [tranType, setTranType] = useState('Expense');
+    
 
     const expenseContextData = useContext(ExpenseContext);
 
@@ -22,26 +23,29 @@ const TransactionForm = (props) => {
     }
 
     const handleSaveTransaction = () => {
-        
-         if(transFormData.tranType === "Income"){
+
+        if (transFormData.tranType === "Income") {
             let obj = {
                 income: [...expenseContextData.income, transFormData],
                 expense: [...expenseContextData.expense]
             }
             expenseContextData.setBudgetData(obj)
-         }
-         if(transFormData.tranType === "Expense" ) {
+        }
+        if (transFormData.tranType === "Expense") {
             let obj = {
                 income: [...expenseContextData.income],
-                expense: [...expenseContextData.expense , transFormData]
+                expense: [...expenseContextData.expense, transFormData]
             }
             expenseContextData.setBudgetData(obj)
-         }
-         props.toggle();
+        }
+        props.handleAlerts(true)
+        props.toggle();
     }
 
-    return (
+    return (<>
+
         <Modal isOpen={props.modal} toggle={props.toggle} >
+
             <ModalHeader toggle={props.toggle} >Trasaction </ModalHeader>
             <ModalBody>
                 <Form>
@@ -142,9 +146,13 @@ const TransactionForm = (props) => {
                     <Button onClick={props.toggle}>
                         Cancel
                     </Button>
+                    
                 </Form>
             </ModalBody>
         </Modal>
+
+
+    </>
     )
 }
 

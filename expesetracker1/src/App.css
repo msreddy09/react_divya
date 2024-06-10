@@ -53,3 +53,8 @@
   right: 10px;
   cursor: pointer;
 }
+
+.alert-exp {
+  font-weight: bold;
+  color: red;
+}

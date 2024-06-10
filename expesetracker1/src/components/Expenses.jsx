@@ -3,6 +3,9 @@ import React, { useContext } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { ExpenseContext } from "../contexts/BudgetContext";
 
+
+const MAX_EXP = 1000;
+
 const Expense = (props) => {
 
     const { expense } = useContext(ExpenseContext);
@@ -23,7 +26,7 @@ const Expense = (props) => {
                             {trans.catType}
                             <p><small class="text-body-secondary">{trans.trandate}</small></p>
                         </div>
-                        <div>
+                        <div className={parseInt(trans.amount) > MAX_EXP ? 'alert-exp': ''}>
                             {parseInt(trans.amount).toFixed(2)}
                         </div>
                     </div>

@@ -17,7 +17,10 @@ const ExpenseProvider = (props) => {
             expense: budgetData.expense,
             income: budgetData.income,
             setBudgetData: (data) => {
-                setBudgetData(data);
+                setBudgetData(data); 
+                // store Income data
+
+                // fetch('/incomeEntry', {method: 'post', data: {type:'expense', cat: 'food', amount: 300, date: }}).then(() => 
                 localStorage.setItem('income', JSON.stringify(data.income))
                 localStorage.setItem('expense', JSON.stringify(data.expense))
             },

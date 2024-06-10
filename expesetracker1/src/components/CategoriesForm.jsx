@@ -3,6 +3,7 @@ import { Form, FormGroup, Label, Input, Button, Modal, ModalHeader, ModalBody } 
 import { ExpenseContext } from "../contexts/BudgetContext";
 
 
+
 const CatergoriesForm = (props) => {
 
     const {icats, setIcats} = useContext(ExpenseContext);

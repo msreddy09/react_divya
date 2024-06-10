@@ -14,6 +14,12 @@ const Report = () => {
       const total = expContextData.income.reduce((acc, inc, ind) => parseInt(inc.amount) + acc , 0) || 0;
       return total.toFixed(2);
    }
+
+   const getTotalOutStanding = () => {
+      const totalOutstandAmount = getTotalIncome() - getTotalExpense();
+      return totalOutstandAmount.toFixed(2);
+   }
+
    return (<div>
       <Row>
          <Col sm="4">
@@ -22,7 +28,7 @@ const Report = () => {
                   Total Income
                </CardTitle>
                <CardText>
-               {getTotalIncome()}
+               {"$ " + getTotalIncome()}
                </CardText>
 
             </Card>
@@ -33,7 +39,7 @@ const Report = () => {
                   Total Expenses
                </CardTitle>
                <CardText>
-                  {getTotalExpense()}
+                  {"$ " +  getTotalExpense()}
                </CardText>
 
             </Card>
@@ -44,7 +50,7 @@ const Report = () => {
                   Outstanding
                </CardTitle>
                <CardText>
-                 {getTotalIncome() - getTotalExpense()}
+                 {"$ " + getTotalOutStanding()}
                </CardText>
 
             </Card>

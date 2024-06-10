@@ -1,26 +1,41 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { Collapse, Nav, NavItem, NavLink, Navbar, NavbarBrand, NavbarToggler } from "reactstrap";
+import styled from "styled-components";
+
+
 
 const TrackerHeader = () => {
+  const [collapsed, setCollapsed] = useState(true);
+
+  const toggleNavbar = () => setCollapsed(!collapsed);
+  const StyledNavItem = styled(NavLink)`
+  color: #BF4F74;
+  font-weight: bold;
+`;
 
   return (
     <div className="container-fluid">
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">Expense Tracker</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <Link to="/" className="nav-link active">Report</Link>
-              <Link to="/income" className="nav-link">Income</Link>
-              <Link to="/expense" className="nav-link">Expense</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar color="faded" light>
+        <NavbarBrand href="/" className="me-auto">
+          Expense Tracker
+        </NavbarBrand>
+        <NavbarToggler onClick={toggleNavbar} className="me-2" />
+        <Collapse isOpen={!collapsed} navbar>
+          <Nav navbar>
+            <NavItem>
+              <StyledNavItem href="/report">Dash Board</StyledNavItem>
+            </NavItem>
+            <NavItem>
+            <StyledNavItem href="/expense">Expenses</StyledNavItem>
+            </NavItem>
+            <NavItem>
+            <StyledNavItem href="/income">Income</StyledNavItem>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
       <Outlet />
     </div>
   )

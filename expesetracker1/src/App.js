@@ -1,9 +1,9 @@
-import { Button } from 'reactstrap';
+import { Alert, Button } from 'reactstrap';
 import './App.css';
 import TrackerHeader from './components/TrackerHeader';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TransactionForm from './components/TransactionForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Report from './components/Report';
 import Expense from './components/Expenses';
@@ -17,6 +17,13 @@ function App() {
 
   const toggle = () => setModal(!modal);
   const catToggle = () => setCatModal(!catModal);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+  useEffect(() => {
+
+    setTimeout(() => setShowSuccessAlert(false), 5000);
+
+  }, [showSuccessAlert])
 
   return (
     <ExpenseProvider>
@@ -25,6 +32,7 @@ function App() {
         <Routes>
           <Route path='/' element={<TrackerHeader />}>
             <Route index element={<Report />} />
+            <Route path="/report" element={<Report />} />
             <Route path="/income" element={<Income toggle={toggle} />} />
             <Route path="/expense" element={<Expense />} />
           </Route>
@@ -41,8 +49,11 @@ function App() {
             <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0" />
           </svg>
         </Button>
-        <TransactionForm modal={modal} toggle={toggle} />
+        <TransactionForm modal={modal} toggle={toggle} handleAlerts={(data) => setShowSuccessAlert(data)} />
         <CatergoriesForm modal={catModal} toggle={catToggle}></CatergoriesForm>
+        {showSuccessAlert && <Alert>
+          Succefully Saved.
+        </Alert>}
       </div>
     </ExpenseProvider>
   );
