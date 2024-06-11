@@ -4,17 +4,17 @@ import { ExpenseContext } from "../contexts/BudgetContext";
 import { Button, ListGroup, ListGroupItem } from "reactstrap";
 
 const Income = ({toggle}) => {
-   const { income } = useContext(ExpenseContext)
+   const { appState } = useContext(ExpenseContext)
    return (<div>
       <h3>Income List</h3>
 
-      {income.length === 0 && <div>
+      {appState.income.length === 0 && <div>
          <p>No Income transactions are available</p>
          <Button color="primary" onClick={() => toggle()}> Add New Income Transaction</Button>
-      </div>}
+      </div>} 
 
       <ListGroup>
-         {income.map((trans, ind) => {
+         {appState.income.map((trans, ind) => {
             return <ListGroupItem>
                <div style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
                   <div>

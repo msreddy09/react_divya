@@ -4,20 +4,23 @@ import { ExpenseContext } from "../contexts/BudgetContext";
 
 const Report = () => {
 
-   const expContextData = useContext(ExpenseContext);
+   const {appState} = useContext(ExpenseContext);
 
    const getTotalExpense = () => {
-      const total = expContextData.expense.reduce((acc, exp, ind) => parseInt(exp.amount) + acc , 0) || 0;
+      const total = appState.expense.reduce((acc, exp, ind) => parseInt(exp.amount) + acc , 0) || 0;
       return total.toFixed(2);
+      // return 0.00
    }
    const getTotalIncome = () => {
-      const total = expContextData.income.reduce((acc, inc, ind) => parseInt(inc.amount) + acc , 0) || 0;
+      const total = appState.income.reduce((acc, inc, ind) => parseInt(inc.amount) + acc , 0) || 0;
       return total.toFixed(2);
+      // return 0.00;
    }
 
    const getTotalOutStanding = () => {
       const totalOutstandAmount = getTotalIncome() - getTotalExpense();
       return totalOutstandAmount.toFixed(2);
+      // return 0.00;
    }
 
    return (<div>
@@ -28,7 +31,7 @@ const Report = () => {
                   Total Income
                </CardTitle>
                <CardText>
-               {"$ " + getTotalIncome()}
+               {appState.currency.symbol + " " + getTotalIncome()}
                </CardText>
 
             </Card>
@@ -39,7 +42,7 @@ const Report = () => {
                   Total Expenses
                </CardTitle>
                <CardText>
-                  {"$ " +  getTotalExpense()}
+                  {appState.currency.symbol  + " " +  getTotalExpense()}
                </CardText>
 
             </Card>
@@ -50,11 +53,14 @@ const Report = () => {
                   Outstanding
                </CardTitle>
                <CardText>
-                 {"$ " + getTotalOutStanding()}
+                 {appState.currency.symbol  + " " +  getTotalOutStanding()}
                </CardText>
 
             </Card>
          </Col>
+      </Row>
+      <Row className="mt-2">
+         <h3>Top 3 Transactions</h3>
       </Row>
    </div>)
 }

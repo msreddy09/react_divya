@@ -1,35 +1,29 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useReducer, useState } from "react";
+import budgetReducer from "../reducers/BudgetReducer";
 
 const ExpenseContext = createContext();
 
 const ExpenseProvider = (props) => {
 
+    let storedData = JSON.parse(localStorage.getItem('appState')) || {};
     const initData = {
-        expense: JSON.parse(localStorage.getItem('expense')) || [],
-        income: JSON.parse(localStorage.getItem('income')) || [],
+        expense: [],
+        income: [],
+        eCats: ['Food', 'Travel', 'Rent'],
+        iCats: ['Salary', 'Shares', 'Extra'],
+        currency: {name: 'USD', symbol: '$'},
+        ...storedData
     }
 
-    const [budgetData, setBudgetData] = useState(initData);
-    const [icats, setIcats] = useState(JSON.parse(localStorage.getItem('icats')) || ['Food', 'Travel', 'Rent'])
+    const [appState, dispatch] = useReducer(budgetReducer, initData);
+
+    // const [budgetData, setBudgetData] = useState(initData);
+    // const [icats, setIcats] = useState(JSON.parse(localStorage.getItem('icats')) || ['Food', 'Travel', 'Rent'])
 
     return (
         <ExpenseContext.Provider value={{
-            expense: budgetData.expense,
-            income: budgetData.income,
-            setBudgetData: (data) => {
-                setBudgetData(data); 
-                // store Income data
-
-                // fetch('/incomeEntry', {method: 'post', data: {type:'expense', cat: 'food', amount: 300, date: }}).then(() => 
-                localStorage.setItem('income', JSON.stringify(data.income))
-                localStorage.setItem('expense', JSON.stringify(data.expense))
-            },
-            icats,
-            setIcats: (data) =>  { 
-                setIcats(data)
-                localStorage.setItem('icats', JSON.stringify(data))
-            }
-
+            appState,
+            dispatch
         }}>
             {props.children}
         </ExpenseContext.Provider>

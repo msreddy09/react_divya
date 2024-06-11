@@ -4,12 +4,8 @@ import { ExpenseContext } from "../contexts/BudgetContext";
 
 const TransactionForm = (props) => {
 
-    const [tranType, setTranType] = useState('Expense');
-    
 
-    const expenseContextData = useContext(ExpenseContext);
-
-
+    const {appState, dispatch} = useContext(ExpenseContext);
     const [transFormData, setTranFormData] = useState({});
 
     const handleInputChange = (event) => {
@@ -24,22 +20,26 @@ const TransactionForm = (props) => {
 
     const handleSaveTransaction = () => {
 
+        //validation go here
+
         if (transFormData.tranType === "Income") {
-            let obj = {
-                income: [...expenseContextData.income, transFormData],
-                expense: [...expenseContextData.expense]
-            }
-            expenseContextData.setBudgetData(obj)
+
+            dispatch({
+                type: 'addIncome',
+                payLoad: transFormData
+            })
+
         }
+
         if (transFormData.tranType === "Expense") {
-            let obj = {
-                income: [...expenseContextData.income],
-                expense: [...expenseContextData.expense, transFormData]
-            }
-            expenseContextData.setBudgetData(obj)
+
+            dispatch({
+                type: 'addExpense',
+                payLoad: transFormData
+            })
+
         }
-        props.handleAlerts(true)
-        props.toggle();
+
     }
 
     return (<>
@@ -89,7 +89,7 @@ const TransactionForm = (props) => {
                         >
                             <option>
                             </option>
-                            {expenseContextData.icats.map((ic, ind) => <option>{ic}</option>)}
+                            {appState.eCats.map((ic, ind) => <option>{ic}</option>)}
 
                         </Input>}
                         {transFormData.tranType === 'Income' && <Input
@@ -100,12 +100,7 @@ const TransactionForm = (props) => {
                         >
                             <option>
                             </option>
-                            <option>
-                                Salary
-                            </option>
-                            <option>
-                                Shares
-                            </option>
+                            {appState.iCats.map((ic, ind) => <option>{ic}</option>)}
 
                         </Input>}
                     </FormGroup>

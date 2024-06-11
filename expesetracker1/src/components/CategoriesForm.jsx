@@ -6,15 +6,34 @@ import { ExpenseContext } from "../contexts/BudgetContext";
 
 const CatergoriesForm = (props) => {
 
-    const {icats, setIcats} = useContext(ExpenseContext);
-    const [catFormData, setCatFormData] = useState('');
+    const { appState, dispatch } = useContext(ExpenseContext);
+    const [catFormData, setCatFormData] = useState({});
 
     const handleInputChange = (event) => {
-        setCatFormData(event.target.value);
+        const { name, value } = event.target;
+        setCatFormData({
+            ...catFormData,
+            [name]: value
+        }
+        )
     }
 
     const handleSaveTransaction = () => {
-        setIcats([...icats, ...catFormData.split(',')])
+
+        if (catFormData.categoryType === 'Income') {
+
+            dispatch({
+                type: 'addICategory',
+                payLoad: catFormData.category
+            })
+        }
+        if (catFormData.categoryType === 'Expense') {
+
+            dispatch({
+                type: 'addECategory',
+                payLoad: catFormData.category
+            })
+        }
     }
 
     return (
@@ -22,6 +41,28 @@ const CatergoriesForm = (props) => {
             <ModalHeader toggle={props.toggle} >Categories Form </ModalHeader>
             <ModalBody>
                 <Form>
+                    <FormGroup>
+                        <Label
+                            for="category"
+                            hidden
+                        >
+                            Type
+                        </Label>
+                        <Input
+                            id="catType"
+                            name="categoryType"
+                            type="select"
+                            placeholder="Category"
+                            onChange={handleInputChange}
+                        >
+                             <option>
+                             </option>
+                            <option>Income
+                            </option>
+                            <option>Expense
+                            </option>
+                        </Input>
+                    </FormGroup>
                     <FormGroup>
                         <Label
                             for="category"
@@ -37,7 +78,7 @@ const CatergoriesForm = (props) => {
                         />
                         <small>you can enter multiple categories by separating with comma</small>
                     </FormGroup>
-                  
+
                     <Button color="primary" onClick={handleSaveTransaction}>
                         Save
                     </Button>

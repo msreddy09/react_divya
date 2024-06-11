@@ -8,7 +8,7 @@ const MAX_EXP = 1000;
 
 const Expense = (props) => {
 
-    const { expense } = useContext(ExpenseContext);
+    const { appState } = useContext(ExpenseContext) || [];
 
     const handleButtonclick = () => {
         // budegetExp.dispatch({ type: 'exp', payload: { amount: 100 } })
@@ -19,7 +19,7 @@ const Expense = (props) => {
         <h3>Expense List</h3>
 
         <ListGroup>
-            {expense.map((trans, ind) => {
+            {appState.expense.map((trans, ind) => {
                 return <ListGroupItem>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
                         <div>

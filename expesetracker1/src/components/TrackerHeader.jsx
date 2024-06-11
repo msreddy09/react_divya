@@ -33,6 +33,9 @@ const TrackerHeader = () => {
             <NavItem>
             <StyledNavItem href="/income">Income</StyledNavItem>
             </NavItem>
+            <NavItem>
+            <StyledNavItem href="/demostate">Demo State</StyledNavItem>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
