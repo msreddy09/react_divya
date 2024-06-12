@@ -43,9 +43,9 @@ const TransactionForm = (props) => {
     }
 
     return (<>
-
+           {console.log('abc')}
         <Modal isOpen={props.modal} toggle={props.toggle} >
-
+       
             <ModalHeader toggle={props.toggle} >Trasaction </ModalHeader>
             <ModalBody>
                 <Form>

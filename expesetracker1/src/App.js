@@ -3,7 +3,7 @@ import './App.css';
 import TrackerHeader from './components/TrackerHeader';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TransactionForm from './components/TransactionForm';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Report from './components/Report';
 import Expense from './components/Expenses';
@@ -11,6 +11,7 @@ import Income from './components/Income';
 import { ExpenseProvider } from './contexts/BudgetContext';
 import CatergoriesForm from './components/CategoriesForm';
 import DemoState from './components/DemoState';
+import Todos from './components/Todos';
 
 function App() {
   const [modal, setModal] = useState(false);
@@ -25,6 +26,17 @@ function App() {
     setTimeout(() => setShowSuccessAlert(false), 5000);
 
   }, [showSuccessAlert])
+  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
+
+  const increment = () => {
+    setCount((c) => c + 1);
+  };
+  const addTodo = useCallback(() => {
+    setTodos((t) => [...t, "New Todo"]);
+  }, [todos]);
+
+  const inputElement = useRef();
 
   return (
     <ExpenseProvider>
@@ -57,6 +69,18 @@ function App() {
           Succefully Saved.
         </Alert>}
       </div>
+
+      <Todos todos={todos} addTodo={addTodo} />
+      <hr />
+      <div>
+        Count: {count}
+        <button onClick={increment}>+</button>
+      </div>
+      <input type="text" ref={inputElement} />
+      <button onClick={() => {
+        alert(inputElement.current.value)
+      }}>On button click</button>
+
     </ExpenseProvider>
   );
 }

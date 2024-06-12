@@ -16,11 +16,12 @@ const budgetReducer = (state, action) => {
             localStorage.setItem('appState', JSON.stringify(newState))
             return newState;
         case 'addExpense':
+            let currentId = state.expense.length || 0;
             let newState1 = {
                 ...state,
                 expense: [
-                    ...state.income,
-                    payLoad
+                    ...state.expense,
+                    {...payLoad, id: currentId + 1}
                 ]
             }
             localStorage.setItem('appState', JSON.stringify(newState1))
