@@ -12,6 +12,7 @@ import { ExpenseProvider } from './contexts/BudgetContext';
 import CatergoriesForm from './components/CategoriesForm';
 import DemoState from './components/DemoState';
 import Todos from './components/Todos';
+import Products from './components/Products';
 
 function App() {
   const [modal, setModal] = useState(false);
@@ -70,16 +71,18 @@ function App() {
         </Alert>}
       </div>
 
-      <Todos todos={todos} addTodo={addTodo} />
+      {/* <Todos todos={todos} addTodo={addTodo} /> */}
       <hr />
-      <div>
+      {/* <div>
         Count: {count}
         <button onClick={increment}>+</button>
       </div>
       <input type="text" ref={inputElement} />
       <button onClick={() => {
         alert(inputElement.current.value)
-      }}>On button click</button>
+      }}>On button click</button> */}
+
+      <Products/>
 
     </ExpenseProvider>
   );
