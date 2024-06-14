@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, FormGroup, Label, Input, Button, Modal, ModalHeader, ModalBody, Alert } from "reactstrap";
 import { ExpenseContext } from "../contexts/BudgetContext";
 
 const TransactionForm = (props) => {
 
-
-    const {appState, dispatch} = useContext(ExpenseContext);
+    const { appState, dispatch } = useContext(ExpenseContext);
     const [transFormData, setTranFormData] = useState({});
 
     const handleInputChange = (event) => {
@@ -40,12 +39,19 @@ const TransactionForm = (props) => {
 
         }
 
+        props.toggle();
+
     }
 
+    useEffect(() => {
+
+        setTranFormData(props.tansData)
+
+    }, [props])
+
     return (<>
-           {console.log('abc')}
         <Modal isOpen={props.modal} toggle={props.toggle} >
-       
+
             <ModalHeader toggle={props.toggle} >Trasaction </ModalHeader>
             <ModalBody>
                 <Form>
@@ -60,6 +66,8 @@ const TransactionForm = (props) => {
                             id="exampleSelect"
                             name="tranType"
                             type="select"
+                            value={transFormData?.tranType || ''}
+                            disabled={props?.tansData?.tranType ? true : false}
                             onChange={handleInputChange}
                         >
                             <option>
@@ -81,10 +89,11 @@ const TransactionForm = (props) => {
                         >
                             Category Type
                         </Label>
-                        {transFormData.tranType === 'Expense' && <Input
+                        {transFormData?.tranType === 'Expense' && <Input
                             id="cattype"
                             name="catType"
                             type="select"
+                            value={transFormData?.catType || ''}
                             onChange={handleInputChange}
                         >
                             <option>
@@ -92,10 +101,11 @@ const TransactionForm = (props) => {
                             {appState.eCats.map((ic, ind) => <option>{ic}</option>)}
 
                         </Input>}
-                        {transFormData.tranType === 'Income' && <Input
+                        {transFormData?.tranType === 'Income' && <Input
                             id="cattype"
                             name="catType"
                             type="select"
+                            value={transFormData?.catType || ''}
                             onChange={handleInputChange}
                         >
                             <option>
@@ -116,6 +126,7 @@ const TransactionForm = (props) => {
                             id="amount"
                             name="amount"
                             placeholder="Amount"
+                            value={transFormData?.amount || ''}
                             onChange={handleInputChange}
                         />
                     </FormGroup>
@@ -131,6 +142,7 @@ const TransactionForm = (props) => {
                             name="trandate"
                             placeholder="Date"
                             type="date"
+                            value={transFormData?.trandate || ''}
                             onChange={handleInputChange}
                         />
                     </FormGroup>
@@ -141,7 +153,7 @@ const TransactionForm = (props) => {
                     <Button onClick={props.toggle}>
                         Cancel
                     </Button>
-                    
+
                 </Form>
             </ModalBody>
         </Modal>

@@ -17,10 +17,16 @@ import Products from './components/Products';
 function App() {
   const [modal, setModal] = useState(false);
   const [catModal, setCatModal] = useState(false);
+  const [editTranRow, setEditTranRow] = useState(null);
 
   const toggle = () => setModal(!modal);
   const catToggle = () => setCatModal(!catModal);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+  const handleEditTransactionData = (transData) => {
+    setEditTranRow(transData);
+    toggle();
+  }
 
   useEffect(() => {
 
@@ -39,6 +45,11 @@ function App() {
 
   const inputElement = useRef();
 
+  const handleNewTrans = () => {
+    setEditTranRow(null);
+    toggle();
+  }
+
   return (
     <ExpenseProvider>
       <div className="App">
@@ -47,13 +58,13 @@ function App() {
           <Route path='/' element={<TrackerHeader />}>
             <Route index element={<Report />} />
             <Route path="/report" element={<Report />} />
-            <Route path="/income" element={<Income toggle={toggle} />} />
-            <Route path="/expense" element={<Expense />} />
+            <Route path="/income" element={<Income toggle={toggle}  onEditClick={handleEditTransactionData}/>} />
+            <Route path="/expense" element={<Expense toggle={toggle} onEditClick={handleEditTransactionData} />} />
             <Route path="/demostate" element={<DemoState />} />
           </Route>
         </Routes>
 
-        <Button className='addTran' color='primary' onClick={toggle} >
+        <Button className='addTran' color='primary' onClick={handleNewTrans} >
           <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" className="bi bi-building-fill-add" viewBox="0 0 16 16">
             <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0" />
             <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7.256A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-3.59 1.787A.5.5 0 0 0 9 9.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .39-.187A4.5 4.5 0 0 0 8.027 12H6.5a.5.5 0 0 0-.5.5V16H3a1 1 0 0 1-1-1zm2 1.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3 0v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z" />
@@ -64,7 +75,9 @@ function App() {
             <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0" />
           </svg>
         </Button>
-        <TransactionForm modal={modal} toggle={toggle} handleAlerts={(data) => setShowSuccessAlert(data)} />
+        <TransactionForm modal={modal} toggle={toggle}
+          handleAlerts={(data) => setShowSuccessAlert(data)}
+          tansData={editTranRow} />
         <CatergoriesForm modal={catModal} toggle={catToggle}></CatergoriesForm>
         {showSuccessAlert && <Alert>
           Succefully Saved.
@@ -72,7 +85,7 @@ function App() {
       </div>
 
       {/* <Todos todos={todos} addTodo={addTodo} /> */}
-      <hr />
+      
       {/* <div>
         Count: {count}
         <button onClick={increment}>+</button>
@@ -82,7 +95,7 @@ function App() {
         alert(inputElement.current.value)
       }}>On button click</button> */}
 
-      <Products/>
+      {/* <Products/> */}
 
     </ExpenseProvider>
   );

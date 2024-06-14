@@ -39,6 +39,7 @@ const TrackerHeader = () => {
           </Nav>
         </Collapse>
       </Navbar>
+      <hr />
       <Outlet />
     </div>
   )
